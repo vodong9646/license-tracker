@@ -1,0 +1,15 @@
+{
+  "name": "license-tracker",
+  "version": "1.0.0",
+  "description": "Theo dõi hạn bản quyền phần mềm",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}

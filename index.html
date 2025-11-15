@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Yêu cầu CSP (Content Security Policy) cho Electron -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <title>Theo dõi Bản quyền</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Trình theo dõi Bản quyền</h1>
+
+      <!-- Button to trigger modal -->
+      <button id="show-add-modal-btn" class="add-new-btn">Thêm bản quyền mới +</button>
+
+      <!-- Form thêm mới đã bị XÓA khỏi đây -->
+
+      <!-- Calendar Section -->
+      <div id="calendar-section" class="card">
+        <h2>Lịch tháng</h2>
+        <div class="calendar-header">
+          <button id="prev-month-btn">&lt;</button>
+          <h3 id="month-year-header"></h3>
+          <button id="next-month-btn">&gt;</button>
+        </div>
+        <div class="calendar-weekdays">
+          <div>CN</div>
+          <div>T2</div>
+          <div>T3</div>
+          <div>T4</div>
+          <div>T5</div>
+          <div>T6</div>
+          <div>T7</div>
+        </div>
+        <div id="calendar-days" class="calendar-days-grid">
+          <!-- Ngày sẽ được render bằng JS -->
+        </div>
+      </div>
+
+      <!-- Danh sách -->
+      <h2>Danh sách bản quyền</h2>
+      <div id="subs-list">
+        <!-- Dữ liệu sẽ được render bằng JS -->
+      </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div id="add-modal-overlay" class="modal-overlay">
+      <div class="modal-content">
+        <button id="close-modal-btn" class="close-modal-btn">&times;</button>
+
+        <!-- Form thêm mới (được CHUYỂN vào đây) -->
+        <form id="add-form">
+          <h2>Thêm bản quyền mới</h2>
+          <div class="form-group">
+            <label for="name">Tên ứng dụng:</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-group">
+            <label for="expiry-date">Ngày hết hạn:</label>
+            <input type="date" id="expiry-date" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" />
+          </div>
+          <div class="form-group">
+            <label for="note">Ghi chú:</label>
+            <textarea id="note" rows="3"></textarea>
+          </div>
+          <button type="submit">Thêm</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

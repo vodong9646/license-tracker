@@ -1,0 +1,339 @@
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+h1,
+h2 {
+  color: #1a1a1a;
+  margin-bottom: 15px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Thẻ (Card) */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Button Thêm Mới */
+.add-new-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+}
+.add-new-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Form (inside modal) */
+#add-form {
+  padding: 10px; /* Thêm padding vì nó không còn là .card */
+}
+
+/* Form */
+#add-form .form-group {
+  margin-bottom: 15px;
+}
+
+#add-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#add-form input[type="text"],
+#add-form input[type="date"],
+#add-form input[type="email"],
+#add-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: inherit; /* Đảm bảo font nhất quán */
+}
+
+#add-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+#add-form button {
+  background-color: #007aff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+#add-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  display: none; /* Ẩn mặc định */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.modal-visible {
+  display: flex; /* Hiển thị khi có class */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1;
+}
+.close-modal-btn:hover {
+  color: #333;
+}
+
+/* Calendar Section */
+#calendar-section {
+  padding: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+  margin: 0 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.calendar-header button {
+  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calendar-header button:hover {
+  background: #e0e0e0;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-weight: 600;
+  text-align: center;
+  color: #555;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-days-grid div {
+  min-height: 80px;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #fdfdfd;
+  font-size: 0.9rem;
+  position: relative; /* Cho tooltip */
+  transition: background-color 0.2s;
+}
+
+.calendar-day.current-day {
+  background-color: #e6f2ff;
+  font-weight: 700;
+  border-color: #007aff;
+}
+
+.calendar-day.expiry-day {
+  background-color: #fff4e6;
+  border-color: #ff9500;
+  font-weight: 700;
+  color: #c50;
+  cursor: help;
+}
+.calendar-day.expiry-day:hover {
+  background-color: #ffe8cc;
+}
+
+/* Tooltip cho calendar */
+.calendar-tooltip {
+  display: none;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  padding: 8px;
+  border-radius: 5px;
+  color: black;
+  z-index: 10;
+  width: max-content;
+  max-width: 300px;
+  font-size: 0.8rem;
+  pointer-events: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-tooltip span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 0;
+}
+
+.calendar-day.expiry-day:hover .calendar-tooltip {
+  display: block;
+}
+
+/* Danh sách */
+.sub-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #007aff; /* Mặc định là màu xanh */
+}
+
+.sub-item .info {
+  flex-grow: 1;
+}
+
+.sub-item .name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.sub-item .expiry {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.sub-item .sub-detail {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 5px;
+  word-break: break-all;
+}
+.sub-item .sub-detail.note {
+  font-style: italic;
+  background-color: #f9f9f9;
+  padding: 5px 8px;
+  border-radius: 3px;
+  white-space: pre-wrap; /* Hiển thị xuống dòng */
+}
+
+.sub-item .days-left {
+  font-weight: 700;
+}
+
+.sub-item .delete-btn {
+  background-color: #ff3b30;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: background-color 0.2s;
+}
+
+.sub-item .delete-btn:hover {
+  background-color: #c00;
+}
+
+/* Styling theo trạng thái */
+.sub-item.soon {
+  border-left-color: #ff9500; /* Vàng cam */
+}
+.sub-item.soon .days-left {
+  color: #ff9500;
+}
+
+.sub-item.expired {
+  border-left-color: #ff3b30; /* Đỏ */
+  opacity: 0.7;
+}
+.sub-item.expired .days-left {
+  color: #ff3b30;
+}
+.sub-item.expired .name,
+.sub-item.expired .expiry {
+  text-decoration: line-through;
+}
