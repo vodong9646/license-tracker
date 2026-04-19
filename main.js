@@ -39,7 +39,7 @@ app.whenReady().then(() => {
 
   // Bắt đầu vòng lặp kiểm tra hạn
   // Kiểm tra mỗi 1 giờ. Bạn có thể đặt 60 * 1000 (1 phút) để test.
-  setInterval(checkExpirations, 60 * 1000);
+  setInterval(checkExpirations, 60 * 60 * 1000);
   // Chạy kiểm tra ngay khi khởi động
   checkExpirations();
 });

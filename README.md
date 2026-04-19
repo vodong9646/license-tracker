@@ -88,9 +88,11 @@ npm start
 
 ### 4. Điểm Lưu Ý
 
-- Lưu trữ Dữ liệu: Dữ liệu của bạn (các bản quyền) được lưu trong một tệp data.json. Tệp này không nằm cùng thư mục dự án. Nó được lưu tại thư mục dữ liệu người dùng của hệ điều hành (ví dụ: `C:\Users\<TênBạn>\AppData\Roaming\license-tracker` trên Windows). Điều này đảm bảo dữ liệu không bị mất ngay cả khi bạn đóng gói hoặc di chuyển ứng dụng.
+- Lưu trữ Dữ liệu: Dữ liệu của bạn (các bản quyền) được lưu trong một tệp data.json. Tệp này nằm cùng thư mục dự án.
 
 - Thời gian Kiểm tra: Trong `main.js`, hàm `checkExpirations` được đặt để chạy 1 giờ một lần `(60 * 60 * 1000)`. Nếu bạn muốn kiểm tra thường xuyên hơn (ví dụ: mỗi 1 phút để thử nghiệm), bạn có thể đổi thành `60 * 1000`.
+
+- Hiển thị thông báo Alert hết hạn trong vòng `10 day` (not oke - tạm thời đã comment), `1 day` (oke), `0 day` (oke)
 
 ### 5. Cách Đóng Gói Ứng Dụng (Tạo file .exe)
 
