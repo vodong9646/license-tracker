@@ -3,9 +3,12 @@ const path = require("path");
 const fs = require("fs");
 
 // Đường dẫn để lưu file data.json.
-// Sử dụng app.getPath('userData') để đảm bảo lưu ở thư mục chuẩn của HĐH.
-const dataPath = path.join(app.getPath("userData"), "data.json");
-// Data lưu trữ ở (window + R): %APPDATA%\app-name\data.json -> %APPDATA%\license-tracker\data.json
+// - Trong development: lưu tại thư mục project (__dirname)
+// - Khi packaged (.exe): lưu tại thư mục chứa file exe
+const dataPath = path.join(
+  app.isPackaged ? path.dirname(app.getPath("exe")) : __dirname,
+  "data.json"
+);
 
 // --- Quản lý Cửa sổ ---
 function createWindow() {
@@ -36,7 +39,7 @@ app.whenReady().then(() => {
 
   // Bắt đầu vòng lặp kiểm tra hạn
   // Kiểm tra mỗi 1 giờ. Bạn có thể đặt 60 * 1000 (1 phút) để test.
-  setInterval(checkExpirations, 60 * 60 * 1000);
+  setInterval(checkExpirations, 60 * 1000);
   // Chạy kiểm tra ngay khi khởi động
   checkExpirations();
 });
@@ -57,7 +60,7 @@ function readData() {
     }
     return []; // Trả về mảng rỗng nếu file chưa tồn tại
   } catch (error) {
-    console.error("Lỗi khi đọc dữ liệu:", error);
+    console.error("Error when reading data file data.json:", error);
     return [];
   }
 }
@@ -66,7 +69,7 @@ function writeData(data) {
   try {
     fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
   } catch (error) {
-    console.error("Lỗi khi ghi dữ liệu:", error);
+    console.error("Error when writing data file data.json:", error);
   }
 }
 
@@ -118,7 +121,7 @@ function showNotification(title, body) {
 }
 
 function checkExpirations() {
-  console.log("Đang kiểm tra hạn...");
+  console.log("Check expirations app...");
   const subs = readData();
   let dataChanged = false; // Cờ theo dõi xem có cần ghi lại file không
 
@@ -126,14 +129,14 @@ function checkExpirations() {
     const daysLeft = getDaysRemaining(sub.expiryDate);
 
     // 1. Thông báo 10 ngày
-    if (daysLeft <= 10 && !sub.notified.d10) {
-      showNotification(
-        `Sắp hết hạn: ${sub.name}`,
-        `Bản quyền sẽ hết hạn trong ${daysLeft} ngày (vào ngày ${sub.expiryDate}).`
-      );
-      sub.notified.d10 = true;
-      dataChanged = true;
-    }
+    // if (daysLeft <= 10 && !sub.notified.d10) {
+    //   showNotification(
+    //     `Sắp hết hạn: ${sub.name}`,
+    //     `Bản quyền sẽ hết hạn trong ${daysLeft} ngày (vào ngày ${sub.expiryDate}).`
+    //   );
+    //   sub.notified.d10 = true;
+    //   dataChanged = true;
+    // }
 
     // 2. Thông báo 1 ngày
     if (daysLeft <= 1 && !sub.notified.d1) {
@@ -152,7 +155,7 @@ function checkExpirations() {
 
   // Nếu có bất kỳ thay đổi nào (đã gửi tb), lưu lại trạng thái
   if (dataChanged) {
-    console.log("Đã cập nhật trạng thái thông báo.");
+    console.log("Updated notification statuses.");
     writeData(subs);
   }
 }
